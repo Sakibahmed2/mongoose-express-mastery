@@ -1,4 +1,4 @@
-import { Schema } from "mongoose";
+import { Schema, model } from "mongoose";
 import { TAddress, TFullName, TOrders, TUser } from "./users.interface";
 
 const fullNameSchema = new Schema<TFullName>({
@@ -30,3 +30,5 @@ const userSchema = new Schema<TUser>({
   address: { type: addressSchema, required: true },
   orders: [{ type: ordersSchema }],
 });
+
+export const Users = model<TUser>("Users", userSchema);
