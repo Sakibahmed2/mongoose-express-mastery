@@ -1,15 +1,15 @@
-interface TFullName {
+export interface TFullName {
   firstName: string;
   lastName: string;
 }
 
-interface TAddress {
+export interface TAddress {
   street: string;
   city: string;
   country: string;
 }
 
-interface TOrders {
+export interface TOrders {
   productName: string;
   price: number;
   quantity: number;
