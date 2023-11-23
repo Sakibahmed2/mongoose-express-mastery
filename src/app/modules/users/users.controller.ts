@@ -27,6 +27,28 @@ const createUser = async (req: Request, res: Response) => {
   }
 };
 
+const getAllUser = async (req: Request, res: Response) => {
+  try {
+    const result = await UserServices.getAllUserFromDB();
+
+    res.status(201).json({
+      success: true,
+      message: "Users fetched successfully!",
+      data: result,
+    });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      message: "Users not found",
+      error: {
+        code: 404,
+        description: "Users not found!",
+      },
+    });
+  }
+};
+
 export const UsersController = {
   createUser,
+  getAllUser,
 };
