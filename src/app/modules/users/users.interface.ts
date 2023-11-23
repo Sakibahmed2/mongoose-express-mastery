@@ -1,25 +1,29 @@
-interface TUser {
+interface TFullName {
+  firstName: string;
+  lastName: string;
+}
+
+interface TAddress {
+  street: string;
+  city: string;
+  country: string;
+}
+
+interface TOrders {
+  productName: string;
+  price: number;
+  quantity: number;
+}
+
+export interface TUser {
   userId: string;
   username: string;
   password: string;
-  fullName: {
-    firstName: string;
-    lastName: string;
-  };
+  fullName: TFullName;
   age: number;
   email: string;
   isActive: boolean;
   hobbies: string[];
-  address: {
-    street: string;
-    city: string;
-    country: string;
-  };
-  orders: [
-    {
-      productName: string;
-      price: number;
-      quantity: number;
-    }
-  ];
+  address: TAddress;
+  orders?: TOrders[];
 }
