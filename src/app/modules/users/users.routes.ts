@@ -11,4 +11,8 @@ route.get("/:userId", UsersController.getSingleUser);
 
 route.put("/:userId", UsersController.updateUser);
 
+route.delete("/:userId", UsersController.deleteUser);
+
+route.put("/:userId/orders", UsersController.createOrder);
+
 export const userRouter = route;

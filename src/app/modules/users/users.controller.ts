@@ -51,6 +51,7 @@ const getAllUser = async (req: Request, res: Response) => {
 const getSingleUser = async (req: Request, res: Response) => {
   try {
     const { userId } = req.params;
+
     const result = await UserServices.getSingleUserFromDB(userId);
 
     res.status(201).json({
@@ -92,9 +93,57 @@ const updateUser = async (req: Request, res: Response) => {
   }
 };
 
+const deleteUser = async (req: Request, res: Response) => {
+  try {
+    const { userId } = req.params;
+    await UserServices.deleteUserFromDb(userId);
+
+    res.status(202).json({
+      success: true,
+      message: "User deleted successfully!",
+      data: null,
+    });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      message: "User deleted failed",
+      error: {
+        code: 404,
+        description: "User not deleted!",
+      },
+    });
+  }
+};
+
+const createOrder = async (req: Request, res: Response) => {
+  try {
+    const { userId } = req.params;
+    const orderData = req.body;
+
+    const result = await UserServices.createOrderIntoUser(userId, orderData);
+
+    res.status(202).json({
+      success: true,
+      message: "Order created successfully!",
+      data: result?.orders,
+    });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      message: "Order create failed",
+      error: {
+        code: 404,
+        description: "Order not created!",
+      },
+    });
+  }
+};
+
 export const UsersController = {
   createUser,
   getAllUser,
   getSingleUser,
   updateUser,
+  deleteUser,
+  createOrder,
 };
