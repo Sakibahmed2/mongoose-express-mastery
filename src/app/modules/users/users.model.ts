@@ -1,11 +1,5 @@
 import { Schema, model } from "mongoose";
-import {
-  TAddress,
-  TFullName,
-  TOrders,
-  TUser,
-  UserModel,
-} from "./users.interface";
+import { TAddress, TFullName, TOrders, TUser } from "./users.interface";
 import bcrypt from "bcrypt";
 import config from "../../config";
 
@@ -51,11 +45,9 @@ const userSchema = new Schema<TUser>({
   orders: [{ type: ordersSchema }],
 });
 
-//pre save middleware / hook
 userSchema.pre("save", async function (next) {
   // eslint-disable-next-line @typescript-eslint/no-this-alias
   const user = this;
-  //hashing password and save into DB
   user.password = await bcrypt.hash(
     user.password,
     Number(config.bcrypt_salt_round)
@@ -63,18 +55,11 @@ userSchema.pre("save", async function (next) {
   next();
 });
 
-//pst save middleware / hook
 userSchema.post("save", function (doc, next) {
   doc.password = "";
 
   next();
 });
 
-userSchema.statics.isUserExists = async function (id: string) {
-  const exitingUser = await Users.findOne({ id });
-
-  return exitingUser;
-};
-
 //
-export const Users = model<TUser, UserModel>("Users", userSchema);
+export const Users = model<TUser>("Users", userSchema);

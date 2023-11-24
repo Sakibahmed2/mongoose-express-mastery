@@ -146,7 +146,9 @@ const getUserAllOrders = async (req: Request, res: Response) => {
     res.status(201).json({
       success: true,
       message: "Order fetched successfully!",
-      data: result?.orders,
+      data: {
+        orders: result?.orders,
+      },
     });
   } catch (error) {
     res.status(500).json({

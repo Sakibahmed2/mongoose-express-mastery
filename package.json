@@ -4,6 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "start": "node ./dist/server.js",
     "build": "tsc",
     "dev": " tsnd --respawn src/server.ts",
     "lint": "eslint src --ignore-path .eslintignore --ext .ts",
