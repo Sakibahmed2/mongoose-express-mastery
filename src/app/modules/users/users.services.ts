@@ -53,6 +53,12 @@ const getAllOrderFromUser = async (id: string) => {
   return result;
 };
 
+const calculateUserOrder = async (id: string) => {
+  const user = await Users.findById(id);
+
+  return user;
+};
+
 export const UserServices = {
   createUserIntoDB,
   getAllUserFromDB,
@@ -61,4 +67,5 @@ export const UserServices = {
   deleteUserFromDb,
   createOrderIntoUser,
   getAllOrderFromUser,
+  calculateUserOrder,
 };
