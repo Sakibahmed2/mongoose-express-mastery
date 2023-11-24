@@ -1,5 +1,11 @@
 import { Schema, model } from "mongoose";
-import { TAddress, TFullName, TOrders, TUser } from "./users.interface";
+import {
+  TAddress,
+  TFullName,
+  TOrders,
+  TUser,
+  UserModel,
+} from "./users.interface";
 import bcrypt from "bcrypt";
 import config from "../../config";
 
@@ -64,5 +70,11 @@ userSchema.post("save", function (doc, next) {
   next();
 });
 
+userSchema.statics.isUserExists = async function (id: string) {
+  const exitingUser = await Users.findOne({ id });
+
+  return exitingUser;
+};
+
 //
-export const Users = model<TUser>("Users", userSchema);
+export const Users = model<TUser, UserModel>("Users", userSchema);

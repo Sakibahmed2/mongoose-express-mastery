@@ -119,13 +119,12 @@ const createOrder = async (req: Request, res: Response) => {
   try {
     const { userId } = req.params;
     const orderData = req.body;
-
-    const result = await UserServices.createOrderIntoUser(userId, orderData);
+    await UserServices.createOrderIntoUser(userId, orderData);
 
     res.status(202).json({
       success: true,
       message: "Order created successfully!",
-      data: result?.orders,
+      data: null,
     });
   } catch (error) {
     res.status(500).json({
@@ -139,6 +138,28 @@ const createOrder = async (req: Request, res: Response) => {
   }
 };
 
+const getUserAllOrders = async (req: Request, res: Response) => {
+  try {
+    const { userId } = req.params;
+    const result = await UserServices.getAllOrderFromUser(userId);
+
+    res.status(201).json({
+      success: true,
+      message: "Order fetched successfully!",
+      data: result?.orders,
+    });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      message: "Order not found",
+      error: {
+        code: 404,
+        description: "Order not found!",
+      },
+    });
+  }
+};
+
 export const UsersController = {
   createUser,
   getAllUser,
@@ -146,4 +167,5 @@ export const UsersController = {
   updateUser,
   deleteUser,
   createOrder,
+  getUserAllOrders,
 };

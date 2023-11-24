@@ -43,7 +43,12 @@ const createOrderIntoUser = async (id: string, orderData: TOrders) => {
       },
     },
   });
-  console.log(result);
+
+  return result;
+};
+
+const getAllOrderFromUser = async (id: string) => {
+  const result = await Users.findById(id);
 
   return result;
 };
@@ -55,4 +60,5 @@ export const UserServices = {
   updateUserFromDB,
   deleteUserFromDb,
   createOrderIntoUser,
+  getAllOrderFromUser,
 };
